@@ -883,6 +883,71 @@ def get_custom_fields():
 		},
 	]
 
+	custom_fields_opportunity = [
+		{
+			"label": "SimpaTec",
+			"fieldname": "simpatec",
+			"fieldtype": "Section Break",
+			"insert_after": ""
+		},
+		{
+			"label": "Customer Subsidiary",
+			"fieldname": "customer_subsidiary",
+			"fieldtype": "Link",
+   			"options": "Customer Subsidiary",
+			"mandatory_depends_on": "eval:doc.status == 'Open'",
+			"insert_after": "simpatec"
+		},
+		{
+			"label": "Subsidiary Address",
+			"fieldname": "subsidiary_address",
+			"fieldtype": "Link",
+   			"options": "Address",
+			"fetch_from": "customer_subsidiary.subsidiary_address",
+      		"description": "This address will be fetched from the linked Customer Subsidiary and is the main address throughout the sales process.\nERPNext's standard address fields will be used for billing and shipping only.",
+			"fetch_if_empty": 1,
+   			"read_only": 1,
+			"insert_after": "customer_subsidiary"
+		},
+		{
+			"fieldname": "column_break_pvhea",
+			"fieldtype": "Column Break",
+			"insert_after": "subsidiary_address",
+		},
+		{
+			"label": "Item Group",
+			"fieldname": "item_group",
+			"fieldtype": "Link",
+   			"options": "Item Group",
+			"reqd": 1,
+			"in_list_view": 1,
+			"insert_after": "column_break_pvhea"
+		},
+		{
+			"fieldname": "column_break_gwtnu",
+			"fieldtype": "Column Break",
+			"insert_after": "item_group",
+		},
+		{
+			"label": "Ihr Ansprechpartner",
+			"fieldname": "ihr_ansprechpartner",
+			"fieldtype": "Link",
+   			"options": "Employee",
+			"fetch_if_empty": 1,
+			"ignore_user_permissions": 1,
+			"insert_after": "column_break_gwtnu"
+		},
+		{
+			"label": "Assigned to",
+			"fieldname": "assigned_to",
+			"fieldtype": "Link",
+   			"options": "User",
+			"fetch_from": "customer_subsidiary.assigned_to",
+			"fetch_if_empty": 1,
+			"insert_after": "ihr_ansprechpartner"
+		},
+		
+	]
 
 	return {
 		"Customer": custom_fields_customer,
@@ -894,5 +959,6 @@ def get_custom_fields():
 		"Purchase Order": custom_fields_po,
 		"Purchase Order Item": custom_fields_poi,
 		"Quotation": custom_fields_quo,
-		"Quotation Item": custom_fields_quoi
+		"Quotation Item": custom_fields_quoi,
+		"Opportunity": custom_fields_opportunity
 	}
