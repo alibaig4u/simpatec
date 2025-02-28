@@ -37,7 +37,93 @@ frappe.ui.form.on('Opportunity', {
 				(ele) => ele.item_language == element
 			).length;
 		}
+	},
+
+	// Added from client script
+	refresh(frm) {
+		var cur_frm = frm;
+		console.log("Add button");
+		frm.add_custom_button('Angebotsvorlage', function () { frm.trigger('get_items') }, __("Get Items From"));
+		// Set the filter on the task field to show only tasks linked to the project
+		frm.set_query('customer_subsidiary', function () {
+			if(!is_null(cur_frm.doc.party_name)){
+				return {
+					filters: [
+						['Customer Subsidiary', 'customer', '=', frm.doc.party_name]
+					]
+				};
+			}
+		});
+	},
+	get_items(frm) {
+		frm.events.start_dialog(frm);
+	},
+	
+	start_dialog(frm) {
+		// The fetch-from fields
+		var fields = [
+			"item_code",
+			//  "item_name",
+			"positionsart",
+			//  "description",
+			"qty",
+			"uom",
+			"rate"];
+		let dialog = new frappe.ui.form.MultiSelectDialog({
+
+			// Read carefully and adjust parameters
+			doctype: "Angebotsvorlage", // Doctype we want to pick up
+			target: frm,
+			setters: {
+			},
+			date_field: "creation", // "modified", "creation", ...
+			get_query() {
+				// MultiDialog Listfilter
+				return {
+					filters: {}
+				};
+			},
+			action(selections) {
+				var name = selections[0];
+				frappe.db.get_doc("Angebotsvorlage", name) // Again, the Doctype we want to pick up
+				.then(doc => {
+					// Copy the items from the template and paste them into the frm
+					for (var n = 0; n < doc.angebotsvorlage_item.length; n++) {
+						var item = doc.angebotsvorlage_item[n];
+
+						// Copy-Paste Operation
+						var child = {};
+						for (var m = 0; m < fields.length; m++) {
+							child[fields[m]] = item[fields[m]];
+						}
+						frm.add_child("items", child);
+						frm.refresh_fields("items"); // Refresh Tabelle
+					}
+				});
+			}
+		});
+	},
+	// Default Probability %
+	verkaufschance_a_bis_e: function (frm, dt, dn) {
+		switch (frm.doc.verkaufschance_a_bis_e.charAt(0)) {
+			case 'A':
+				frappe.model.set_value(dt, dn, "probability", 90);
+				break;
+			case 'B':
+				frappe.model.set_value(dt, dn, "probability", 50);
+				break;
+			case 'C':
+				frappe.model.set_value(dt, dn, "probability", 20);
+				break;
+			case 'D':
+				frappe.model.set_value(dt, dn, "probability", 10);
+				break;
+			case 'E':
+				frappe.model.set_value(dt, dn, "probability", 5);
+				break;
+		}
 	}
+	// Added from client script end
 });
 
 frappe.ui.form.on('Opportunity Item',{
