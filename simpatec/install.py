@@ -906,8 +906,7 @@ def get_custom_fields():
 			"fetch_from": "customer_subsidiary.subsidiary_address",
       		"description": "This address will be fetched from the linked Customer Subsidiary and is the main address throughout the sales process.\nERPNext's standard address fields will be used for billing and shipping only.",
 			"fetch_if_empty": 1,
-   			"read_only": 1,
-			"insert_after": "customer_subsidiary"
+   			"insert_after": "customer_subsidiary"
 		},
 		{
 			"fieldname": "column_break_pvhea",
