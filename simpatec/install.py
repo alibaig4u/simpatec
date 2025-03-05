@@ -640,57 +640,73 @@ def get_custom_fields():
 	]
  	
 	custom_fields_quo = [
-     	{
-			"label": "Customer Subsidiary",
-			"fieldname": "customer_subsidiary",
-			"fieldtype": "Link",
-			"options": "Customer Subsidiary",
-			"insert_after": "party_name",
-		},
+		
 		{
 			"label": "SimpaTec",
 			"fieldname": "simpatec_section",
 			"fieldtype": "Section Break",
 		},	
-		{
-			"label": "Sales Order Type",
-			"fieldname": "sales_order_type",
-			"fieldtype": "Select",
-			"options": "\nFirst Sale\nFollow-Up Sale\nReoccuring Maintenance\nRTO\nSubscription Annual\nInternal Clearance\nOther",
-			"default": "",
-			"insert_after": "simpatec_section"
+     	{
+			"label": "Customer Subsidiary",
+			"fieldname": "customer_subsidiary",
+			"fieldtype": "Link",
+			"options": "Customer Subsidiary",
+			"insert_after": "simpatec_section",
 		},
 		{
-			"label": "Item Group",
-			"fieldname": "item_group",
+			"label": "Subsidiary Address",
+			"fieldname": "subsidiary_address",
 			"fieldtype": "Link",
-			"options": "Item Group",
-			"insert_after": "sales_order_type"
+   			"options": "Address",
+			"fetch_from": "customer_subsidiary.subsidiary_address",
+      		"description": "This address will be fetched from the linked Customer Subsidiary and is the main address throughout the sales process.\nERPNext's standard address fields will be used for billing and shipping only.",
+			"fetch_if_empty": 1,
+   			"insert_after": "customer_subsidiary"
 		},
 		{
 			"label": "Quotation Label",
 			"fieldname": "quotation_label",
 			"fieldtype": "Link",
 			"options": "Angebotsvorlage",
-			"insert_after": "item_group"
+			"insert_after": "subsidiary_address"
+		},
+		{
+			"fieldname": "column_break_pvhea",
+			"fieldtype": "Column Break",
+			"insert_after": "quotation_label",
+		},
+		{
+			"label": "Sales Order Type",
+			"fieldname": "sales_order_type",
+			"fieldtype": "Select",
+			"options": "\nFirst Sale\nFollow-Up Sale\nReoccuring Maintenance\nRTO\nSubscription Annual\nInternal Clearance\nOther",
+			"default": "",
+			"insert_after": "column_break_pvhea"
+		},
+		{
+			"label": "Software Maintenance",
+			"fieldname": "software_maintenance",
+			"fieldtype": "Link",
+			"options": "Software Maintenance",
+			"insert_after": "sales_order_type",
+		},
+		{
+			"label": "Item Group",
+			"fieldname": "item_group",
+			"fieldtype": "Link",
+			"options": "Item Group",
+			"insert_after": "software_maintenance"
+		},
+		{
+			"fieldname": "column_break_fdgxg",
+			"fieldtype": "Column Break",
+			"insert_after": "item_group",
 		},
 		{
 			"label": "Performance Period Start",
 			"fieldname": "performance_period_start",
 			"fieldtype": "Date",
 			"description": "Muss gefüllt werden wenn Wartungspositionen in Auftrag gehen.",
-			"insert_after": "quotation_label",
-		},
-		{
-			"fieldname": "column_break_fdgxg",
-			"fieldtype": "Column Break",
-			"insert_after": "performance_period_start",
-		},
-  		{
-			"label": "Software Maintenance",
-			"fieldname": "software_maintenance",
-			"fieldtype": "Link",
-			"options": "Software Maintenance",
 			"insert_after": "column_break_fdgxg",
 		},
 		{
@@ -698,7 +714,7 @@ def get_custom_fields():
 			"fieldname": "performance_period_end",
 			"fieldtype": "Date",
 			"description": "Muss gefüllt werden wenn Wartungspositionen in Auftrag gehen.",
-			"insert_after": "software_maintenance",
+			"insert_after": "performance_period_start",
 		},
   		{
 			"label": "Assigned to",
@@ -710,7 +726,7 @@ def get_custom_fields():
 			"insert_after": "performance_period_end"
 		},
 		{
-			"label": "Ihr Ansprechpartner",
+			"label": "Your Contact",
 			"fieldname": "ihr_ansprechpartner",
 			"fieldtype": "Link",
 			"options": "Employee",
