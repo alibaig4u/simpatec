@@ -62,5 +62,39 @@
   "property_type": "Check",
   "row_name": null,
   "value": "1"
+ },
+ {
+  "default_value": null,
+  "doc_type": "Quotation",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": "customer_address",
+  "modified": "2025-03-05 04:12:51.671763",
+  "name": "Quotation-customer_address-fetch_from",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "property": "fetch_from",
+  "property_type": "Small Text",
+  "row_name": null,
+  "value": "customer_subsidiary.billing_address"
+ },
+ {
+  "default_value": null,
+  "doc_type": "Quotation",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": "customer_address",
+  "modified": "2025-03-05 04:15:11.320777",
+  "name": "Quotation-customer_address-description",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "property": "description",
+  "property_type": "Text",
+  "row_name": null,
+  "value": "This address is the Subsidiary Address fetched from the Customer Subsidiary."
  }
 ]

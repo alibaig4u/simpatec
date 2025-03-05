@@ -130,6 +130,16 @@ frappe.ui.form.on('Quotation', {
 			// Add Conditional Mandatory On Start/End Dates
 			frm.events.start_end_date_conditional_mandatory(frm)
 		}
+
+		frm.set_query('customer_subsidiary', function () {
+			if (!is_null(cur_frm.doc.party_name)) {
+				return {
+					filters: [
+						['Customer Subsidiary', 'customer', '=', frm.doc.party_name]
+					]
+				};
+			}
+		});
     },
 	setup: function(frm){
 		frm.set_query("anschreiben_vorlage", () => {

@@ -236,7 +236,9 @@ fixtures = [
 					"Sales Order-payment_terms_template-fetch_from",
                     "Quotation-payment_terms_template-fetch_from",
 					"Sales Invoice-payment_terms_template-fetch_from",
-                    "Sales Order-software_maintenance-no_copy"
+                    "Sales Order-software_maintenance-no_copy",
+                    "Quotation-customer_address-fetch_from",
+                    "Quotation-customer_address-description"
 				)
 			]
 		]
