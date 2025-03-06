@@ -123,12 +123,48 @@ def get_custom_fields():
 			"fieldtype": "Section Break",
 		},	
 		{
+			"label": "Customer Subsidiary",
+			"fieldname": "customer_subsidiary",
+			"fieldtype": "Link",
+			"options": "Customer Subsidiary",
+			"reqd":1,
+			"insert_after": "simpatec_section"
+		},
+		{
+			"label": "Subsidiary Address",
+			"fieldname": "subsidiary_address",
+			"fieldtype": "Link",
+   			"options": "Address",
+			"fetch_from": "customer_subsidiary.subsidiary_address",
+      		"description": "This address will be fetched from the linked Customer Subsidiary and is the main address throughout the sales process.\nERPNext's standard address fields will be used for billing and shipping only.",
+			"fetch_if_empty": 1,
+   			"insert_after": "customer_subsidiary"
+		},
+  		{
+			"label": "Quotation Label",
+			"fieldname": "quotation_label",
+			"fieldtype": "Link",
+			"options": "Angebotsvorlage",
+			"insert_after": "subsidiary_address"
+		},
+		{
+			"label": "UID",
+			"fieldname": "uid",
+			"fieldtype": "Data",
+			"insert_after": "quotation_label"
+		},
+		{
+			"fieldname": "column_break_pvhea",
+			"fieldtype": "Column Break",
+			"insert_after": "uid",
+		},
+		{
 			"label": "Sales Order Type",
 			"fieldname": "sales_order_type",
 			"fieldtype": "Select",
 			"options": "\nFirst Sale\nFollow-Up Sale\nReoccuring Maintenance\nRTO\nSubscription Annual\nInternal Clearance\nOther",
 			"default": "",
-			"insert_after": "simpatec_section"
+			"insert_after": "column_break_pvhea"
 		},
 		{
 			"label": "Eligable for Clearance",
@@ -139,51 +175,39 @@ def get_custom_fields():
 			"insert_after": "sales_order_type",
 		},
 		{
+			"label": "Internal Clearance Details",
+			"fieldname": "internal_clearance_details",
+			"fieldtype": "Link",
+			"options": "Internal Clearance Details",
+			"allow_on_submit": 1,
+			"depends_on": "eval:doc.sales_order_type != \"Internal Clearance\" && doc.eligable_for_clearance == 1 && doc.sales_order_type != \"\"",
+			"insert_after": "eligable_for_clearance",
+		},
+		{
 			"label": "Item Group",
 			"fieldname": "item_group",
 			"fieldtype": "Link",
 			"options": "Item Group",
-			"insert_after": "eligable_for_clearance"
+			"insert_after": "internal_clearance_details"
 		},
 		{
-			"label": "Quotation Label",
-			"fieldname": "quotation_label",
-			"fieldtype": "Link",
-			"options": "Angebotsvorlage",
-			"insert_after": "item_group"
+			"fieldname": "column_break_fdgxg",
+			"fieldtype": "Column Break",
+			"insert_after": "item_group",
 		},
 		{
 			"label": "Performance Period Start",
 			"fieldname": "performance_period_start",
 			"fieldtype": "Date",
 			"description": "Muss gefüllt werden wenn Wartungspositionen in Auftrag gehen.",
-			"insert_after": "quotation_label",
-		},
-		{
-			"fieldname": "column_break_fdgxg",
-			"fieldtype": "Column Break",
-			"insert_after": "performance_period_start",
-		},
-		{
-			"label": "UID",
-			"fieldname": "uid",
-			"fieldtype": "Data",
-			"insert_after": "column_break_fdgxg"
-		},
-		{
-			"label": "Customer Subsidiary",
-			"fieldname": "customer_subsidiary",
-			"fieldtype": "Link",
-			"options": "Customer Subsidiary",
-			"reqd":1,
-			"insert_after": "uid"
+			"insert_after": "column_break_fdgxg",
 		},
 		{
 			"label": "Performance Period End",
 			"fieldname": "performance_period_end",
 			"fieldtype": "Date",
 			"description": "Muss gefüllt werden wenn Wartungspositionen in Auftrag gehen.",
-			"insert_after": "customer_subsidiary",
+			"insert_after": "performance_period_start",
 		},
 		{
 			"label": "Assigned to",
@@ -195,11 +219,12 @@ def get_custom_fields():
 			"insert_after": "performance_period_end"
 		},
 		{
-			"label": "Ihr Ansprechpartner",
+			"label": "Your Contact",
 			"fieldname": "ihr_ansprechpartner",
 			"fieldtype": "Link",
 			"options": "Employee",
 			"reqd":1,
+   			"fetch_if_empty":1,
 			"insert_after": "assigned_to"
 		},
 		{
@@ -218,15 +243,6 @@ def get_custom_fields():
 			"insert_after": "internal_clearance"
 		},
 		{
-			"label": "Internal Clearance Details",
-			"fieldname": "internal_clearance_details",
-			"fieldtype": "Link",
-			"options": "Internal Clearance Details",
-			"allow_on_submit": 1,
-			"depends_on": "eval:doc.sales_order_type != \"Internal Clearance\" && doc.eligable_for_clearance == 1 && doc.sales_order_type != \"\"",
-			"insert_after": "sales_order_clearances",
-		},
-		{
 			"label": "Purchase Order Total",
 			"fieldname": "po_total",
 			"fieldtype": "Currency",
@@ -234,7 +250,7 @@ def get_custom_fields():
 			"no_copy": 1,
 			"allow_on_submit": 1,
 			"depends_on": "eval:doc.sales_order_type != \"Internal Clearance\" && doc.eligable_for_clearance == 1 && doc.sales_order_type != \"\"",
-			"insert_after": "internal_clearance_details",
+			"insert_after": "sales_order_clearances",
 		},
 		{
 			"label": "Sales Order Margin",

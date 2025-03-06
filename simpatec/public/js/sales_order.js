@@ -90,6 +90,15 @@ frappe.ui.form.on('Sales Order', {
             $("div[data-fieldname='sales_order_clearances']").parents(".form-column").removeClass("col-md-12")
         }
 
+        frm.set_query('customer_subsidiary', function () {
+            if (!is_null(cur_frm.doc.customer)) {
+                return {
+                    filters: [
+                        ['Customer Subsidiary', 'customer', '=', frm.doc.customer]
+                    ]
+                };
+            }
+        });
     },
 
     internal_clearance_details: function(frm){
