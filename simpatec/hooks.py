@@ -238,7 +238,8 @@ fixtures = [
 					"Sales Invoice-payment_terms_template-fetch_from",
                     "Sales Order-software_maintenance-no_copy",
                     "Quotation-customer_address-fetch_from",
-                    "Quotation-customer_address-description"
+                    "Quotation-customer_address-description",
+					"Sales Invoice-customer_section-label",
 				)
 			]
 		]

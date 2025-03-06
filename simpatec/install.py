@@ -151,6 +151,7 @@ def get_custom_fields():
 			"label": "UID",
 			"fieldname": "uid",
 			"fieldtype": "Data",
+			"fetch_from": "subsidiary_address.uid",
 			"insert_after": "quotation_label"
 		},
 		{
@@ -527,18 +528,199 @@ def get_custom_fields():
 
 	custom_fields_si = [
 		{
+			"label": "SimpaTec",
+			"fieldname": "simpatec_section",
+			"fieldtype": "Section Break",
+		},	
+		{
+			"label": "Main Customer Contact",
+			"fieldname": "billing_contact",
+			"fieldtype": "Link",
+			"options": "Contact",
+			"fetch_from": "customer_subsidiary.main_customer_contact",
+			"fetch_if_empty": 1,
+			"insert_after": "simpatec_section"
+		},
+		{
+			"label": "Billing Type",
+			"fieldname": "billing_type",
+			"fieldtype": "Select",
+			"options": "\nPaper Mail\nE-Mail\nSupplier Portal",
+			"fetch_from": "customer_subsidiary.billing_type",
+			"fetch_if_empty": 1,
+			"insert_after": "billing_contact"
+		},
+		{
+			"label": "Billing Email ID",
+			"fieldname": "billing_email_id",
+			"fieldtype": "Data",
+			"options": "Email",
+			"fetch_from": "customer_subsidiary.billing_email_id",
+			"fetch_if_empty": 1,
+			"description": "Works comma seperated. E.g. billing1@asdf.de,billing2@trgd.de/ fetch from customer subsidiary",
+			"insert_after": "billing_type"
+		},
+		{
+			"fieldname": "column_break_nmrk4",
+			"fieldtype": "Column Break",
+			"insert_after": "billing_email_id",
+		},
+		{
+			"label": "Supplier Number",
+			"fieldname": "supplier_number",
+			"fieldtype": "Data",
+			"fetch_from": "customer.supplier_number",
+			"description": "Wird vom Kunden übermittelt",
+			"insert_after": "column_break_nmrk4"
+		},
+		{
+			"label": "Supplier Portal",
+			"fieldname": "supplier_portal",
+			"fieldtype": "Data",
+			"fetch_from": "customer_subsidiary.supplier_portal",
+			"mandatory_depends_on": "eval:doc.billing_type=='Supplier Portal'",
+			"translatable": 1,
+			"insert_after": "supplier_number"
+		},
+		{
+			"fieldname": "column_break_nszzd",
+			"fieldtype": "Column Break",
+			"insert_after": "supplier_portal",
+		},
+		{
+			"label": "Delivery Date",
+			"fieldname": "delivery_date",
+			"fieldtype": "Date",
+			"insert_after": "column_break_nszzd"
+		},
+		{
+			"label": "Editor at your agency",
+			"fieldname": "bearbeiter_in_ihrem_hause",
+			"fieldtype": "Link",
+			"options": "Contact",
+			"description": "Bestellung wird beim Kunden bearbeitet von",
+			"insert_after": "delivery_date"
+		},
+		{
+			"label": "Print article description",
+			"fieldname": "print_article_description",
+			"fieldtype": "Check",
+			"insert_after": "bearbeiter_in_ihrem_hause"
+		},
+		{
+			"label": "",
+			"fieldname": "simpatec_section_2",
+			"fieldtype": "Section Break",
+			"insert_after": "print_article_description"
+		},
+		{
+			"label": "Customer Subsidiary",
+			"fieldname": "customer_subsidiary",
+			"fieldtype": "Link",
+			"options": "Customer Subsidiary",
+			"mandatory_depends_on": "eval:doc.status == 'Draft'",
+			"insert_after": "simpatec_section_2"
+		},
+		{
+			"label": "Subsidiary Address",
+			"fieldname": "subsidiary_address",
+			"fieldtype": "Link",
+   			"options": "Address",
+			"fetch_from": "customer_subsidiary.subsidiary_address",
+      		"description": "This address will be fetched from the linked Customer Subsidiary and is the main address throughout the sales process.\nERPNext's standard address fields will be used for billing and shipping only.",
+			"fetch_if_empty": 1,
+   			"insert_after": "customer_subsidiary"
+		},
+  		{
+			"label": "Quotation Label",
+			"fieldname": "quotation_label",
+			"fieldtype": "Link",
+			"options": "Angebotsvorlage",
+			"in_list_view": 1,
+			"insert_after": "subsidiary_address"
+		},
+		{
+			"label": "UID",
+			"fieldname": "uid",
+			"fieldtype": "Data",
+			"fetch_from": "subsidiary_address.uid",
+   			"fetch_if_empty": 1,
+			"insert_after": "quotation_label"
+		},
+		{
+			"fieldname": "column_break_pvhea",
+			"fieldtype": "Column Break",
+			"insert_after": "uid",
+		},
+		{
+			"label": "Order Type",
+			"fieldname": "order_type",
+			"fieldtype": "Select",
+			"options": "\nSales\nMaintenance\nShopping Cart",
+			"default": "",
+			"insert_after": "column_break_pvhea"
+		},
+		{
+			"label": "Item Group",
+			"fieldname": "item_group",
+			"fieldtype": "Link",
+			"options": "Item Group",
+			"allow_on_submit": 1,
+			"insert_after": "order_type"
+		},
+		{
+			"fieldname": "column_break_fdgxg",
+			"fieldtype": "Column Break",
+			"insert_after": "item_group",
+		},
+		{
+			"label": "Performance Period Start",
+			"fieldname": "performance_period_start",
+			"fieldtype": "Date",
+			"description": "Muss gefüllt werden wenn Wartungspositionen in Auftrag gehen.",
+			"insert_after": "column_break_fdgxg",
+		},
+		{
+			"label": "Performance Period End",
+			"fieldname": "performance_period_end",
+			"fieldtype": "Date",
+			"description": "Muss gefüllt werden wenn Wartungspositionen in Auftrag gehen.",
+			"in_list_view": 1,
+			"insert_after": "performance_period_start",
+		},
+		{
+			"label": "Assigned to",
+			"fieldname": "assigned_to",
+			"fieldtype": "Link",
+			"options": "User",
+			"fetch_from": "customer_subsidiary.assigned_to",
+			"fetch_if_empty":1,
+			"reqd": 1,
+			"insert_after": "performance_period_end"
+		},
+		{
+			"label": "Your Contact",
+			"fieldname": "ihr_ansprechpartner",
+			"fieldtype": "Link",
+			"options": "Employee",
+   			"fetch_if_empty":1,
+			"ignore_user_permissions": 1,
+			"insert_after": "assigned_to"
+		},
+		{
+			"label": "Vollständinger Name",
+			"fieldname": "vollständinger_name",
+			"fieldtype": "Data",
+			"fetch_from": "ihr_ansprechpartner.employee_name",
+			"read_only": 1,
+			"insert_after": "ihr_ansprechpartner"
+		},
+		{
 			"label": "Software Maintenance",
 			"fieldname": "software_maintenance",
 			"fieldtype": "Link",
 			"options": "Software Maintenance",
 			"insert_after": "accounting_dimensions_section",
-		},
-  		{
-			"label": "Customer Subsidiary",
-			"fieldname": "customer_subsidiary",
-			"fieldtype": "Link",
-			"options": "Customer Subsidiary",
-			"insert_after": "customer_name",
 		},
 	]
 
