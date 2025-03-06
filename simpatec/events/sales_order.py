@@ -94,8 +94,11 @@ def make_software_maintenance(source_name, target_doc=None):
 def update_internal_clearance_status(doc, handler=None):
 	if doc.sales_order_type == "Internal Clearance":
 		for item in doc.items:
-			internal_so = doc.sales_order_clearances[item.idx - 1].get("sales_order")
-			frappe.db.set_value(doc.doctype, internal_so, "clearance_status", "Cleared")
+			if len(doc.sales_order_clearances) > 0:
+				internal_so = doc.sales_order_clearances[item.idx - 1].get("sales_order")
+				frappe.db.set_value(doc.doctype, internal_so, "clearance_status", "Cleared")
+			else:
+				frappe.throw("Sales Order Type 'Internal Clearance' is selected, the sales order clearance cannot be empty.")
 
 
 def update_software_maintenance(doc, method=None):
