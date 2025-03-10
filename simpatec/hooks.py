@@ -137,7 +137,8 @@ scheduler_events = {
 #
 override_whitelisted_methods = {
 	"erpnext.selling.doctype.sales_order.sales_order.make_purchase_order_for_default_supplier": "simpatec.events.sales_order.make_purchase_order_for_default_supplier",
-	"erpnext.selling.doctype.sales_order.sales_order.make_purchase_order": "simpatec.events.sales_order.make_purchase_order"
+	"erpnext.selling.doctype.sales_order.sales_order.make_purchase_order": "simpatec.events.sales_order.make_purchase_order",
+	"erpnext.selling.doctype.sales_order.sales_order.make_sales_invoice": "simpatec.events.sales_order.make_sales_invoice",
 }
 #
 # each overriding function accepts a `data` argument;

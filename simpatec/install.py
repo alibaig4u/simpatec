@@ -131,6 +131,15 @@ def get_custom_fields():
 			"insert_after": "simpatec_section"
 		},
 		{
+			"label": "Main Customer Contact",
+			"fieldname": "main_customer_contact",
+			"fieldtype": "Link",
+   			"options": "Contact",
+			"fetch_from": "customer_subsidiary.main_customer_contact",
+			"fetch_if_empty": 1,
+			"insert_after": "customer_subsidiary"
+		},
+		{
 			"label": "Subsidiary Address",
 			"fieldname": "subsidiary_address",
 			"fieldtype": "Link",
@@ -138,7 +147,7 @@ def get_custom_fields():
 			"fetch_from": "customer_subsidiary.subsidiary_address",
       		"description": "This address will be fetched from the linked Customer Subsidiary and is the main address throughout the sales process.\nERPNext's standard address fields will be used for billing and shipping only.",
 			"fetch_if_empty": 1,
-   			"insert_after": "customer_subsidiary"
+   			"insert_after": "main_customer_contact"
 		},
   		{
 			"label": "Quotation Label",
@@ -531,15 +540,6 @@ def get_custom_fields():
 			"label": "SimpaTec",
 			"fieldname": "simpatec_section",
 			"fieldtype": "Section Break",
-		},	
-		{
-			"label": "Main Customer Contact",
-			"fieldname": "billing_contact",
-			"fieldtype": "Link",
-			"options": "Contact",
-			"fetch_from": "customer_subsidiary.main_customer_contact",
-			"fetch_if_empty": 1,
-			"insert_after": "simpatec_section"
 		},
 		{
 			"label": "Billing Type",
@@ -548,7 +548,7 @@ def get_custom_fields():
 			"options": "\nPaper Mail\nE-Mail\nSupplier Portal",
 			"fetch_from": "customer_subsidiary.billing_type",
 			"fetch_if_empty": 1,
-			"insert_after": "billing_contact"
+			"insert_after": "simpatec_section"
 		},
 		{
 			"label": "Billing Email ID",
@@ -622,6 +622,15 @@ def get_custom_fields():
 			"insert_after": "simpatec_section_2"
 		},
 		{
+			"label": "Main Customer Contact",
+			"fieldname": "billing_contact",
+			"fieldtype": "Link",
+			"options": "Contact",
+			"fetch_from": "customer_subsidiary.main_customer_contact",
+			"fetch_if_empty": 1,
+			"insert_after": "customer_subsidiary"
+		},
+		{
 			"label": "Subsidiary Address",
 			"fieldname": "subsidiary_address",
 			"fieldtype": "Link",
@@ -629,7 +638,7 @@ def get_custom_fields():
 			"fetch_from": "customer_subsidiary.subsidiary_address",
       		"description": "This address will be fetched from the linked Customer Subsidiary and is the main address throughout the sales process.\nERPNext's standard address fields will be used for billing and shipping only.",
 			"fetch_if_empty": 1,
-   			"insert_after": "customer_subsidiary"
+   			"insert_after": "billing_contact"
 		},
   		{
 			"label": "Quotation Label",
@@ -852,6 +861,15 @@ def get_custom_fields():
 			"insert_after": "simpatec_section",
 		},
 		{
+			"label": "Main Customer Contact",
+			"fieldname": "main_customer_contact",
+			"fieldtype": "Link",
+   			"options": "Contact",
+			"fetch_from": "customer_subsidiary.main_customer_contact",
+			"fetch_if_empty": 1,
+			"insert_after": "customer_subsidiary"
+		},
+		{
 			"label": "Subsidiary Address",
 			"fieldname": "subsidiary_address",
 			"fieldtype": "Link",
@@ -859,7 +877,7 @@ def get_custom_fields():
 			"fetch_from": "customer_subsidiary.subsidiary_address",
       		"description": "This address will be fetched from the linked Customer Subsidiary and is the main address throughout the sales process.\nERPNext's standard address fields will be used for billing and shipping only.",
 			"fetch_if_empty": 1,
-   			"insert_after": "customer_subsidiary"
+   			"insert_after": "main_customer_contact"
 		},
 		{
 			"label": "Quotation Label",
@@ -1113,6 +1131,15 @@ def get_custom_fields():
 			"insert_after": "simpatec"
 		},
 		{
+			"label": "Main Customer Contact",
+			"fieldname": "main_customer_contact",
+			"fieldtype": "Link",
+   			"options": "Contact",
+			"fetch_from": "customer_subsidiary.main_customer_contact",
+			"fetch_if_empty": 1,
+			"insert_after": "customer_subsidiary"
+		},
+		{
 			"label": "Subsidiary Address",
 			"fieldname": "subsidiary_address",
 			"fieldtype": "Link",
@@ -1120,7 +1147,7 @@ def get_custom_fields():
 			"fetch_from": "customer_subsidiary.subsidiary_address",
       		"description": "This address will be fetched from the linked Customer Subsidiary and is the main address throughout the sales process.\nERPNext's standard address fields will be used for billing and shipping only.",
 			"fetch_if_empty": 1,
-   			"insert_after": "customer_subsidiary"
+   			"insert_after": "main_customer_contact"
 		},
 		{
 			"fieldname": "column_break_pvhea",
