@@ -137,6 +137,7 @@ def get_custom_fields():
    			"options": "Contact",
 			"fetch_from": "customer_subsidiary.main_customer_contact",
 			"fetch_if_empty": 1,
+			"hidden": 1,
 			"insert_after": "customer_subsidiary"
 		},
 		{
@@ -628,6 +629,7 @@ def get_custom_fields():
 			"options": "Contact",
 			"fetch_from": "customer_subsidiary.main_customer_contact",
 			"fetch_if_empty": 1,
+   			"hidden": 1,
 			"insert_after": "customer_subsidiary"
 		},
 		{
@@ -867,6 +869,7 @@ def get_custom_fields():
    			"options": "Contact",
 			"fetch_from": "customer_subsidiary.main_customer_contact",
 			"fetch_if_empty": 1,
+			"hidden": 1,
 			"insert_after": "customer_subsidiary"
 		},
 		{
@@ -1137,6 +1140,7 @@ def get_custom_fields():
    			"options": "Contact",
 			"fetch_from": "customer_subsidiary.main_customer_contact",
 			"fetch_if_empty": 1,
+			"hidden": 1,
 			"insert_after": "customer_subsidiary"
 		},
 		{
