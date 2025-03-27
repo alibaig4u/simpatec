@@ -241,6 +241,13 @@ fixtures = [
                     "Quotation-customer_address-fetch_from",
                     "Quotation-customer_address-description",
 					"Sales Invoice-customer_section-label",
+					"Quotation-customer_address-fetch_if_empty",
+					"Sales Order-customer_address-fetch_if_empty",
+					"Sales Order-customer_address-fetch_from",
+					"Opportunity-customer_address-fetch_if_empty",
+					"Opportunity-customer_address-fetch_from",
+					"Sales Invoice-customer_address-fetch_if_empty",
+					"Sales Invoice-customer_address-fetch_from",
 				)
 			]
 		]
