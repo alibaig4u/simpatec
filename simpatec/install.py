@@ -1192,6 +1192,41 @@ def get_custom_fields():
 		},
 		
 	]
+ 
+ 
+	custom_fields_dunning = [
+		{
+			"label": "SimpaTec",
+			"fieldname": "simpatec_section",
+			"fieldtype": "Section Break",
+		},	
+		{
+			"label": "Customer Subsidiary",
+			"fieldname": "customer_subsidiary",
+			"fieldtype": "Link",
+			"options": "Customer Subsidiary",
+			"insert_after": "simpatec_section"
+		},
+		{
+			"label": "Quotation Label",
+			"fieldname": "quotation_label",
+			"fieldtype": "Link",
+			"options": "Angebotsvorlage",
+			"insert_after": "customer_subsidiary"
+		},
+		{
+			"label": "UID",
+			"fieldname": "uid",
+			"fieldtype": "Data",
+			"fetch_from": "subsidiary_address.uid",
+			"insert_after": "quotation_label"
+		},
+		{
+			"fieldname": "section_break_kiny4",
+			"fieldtype": "Section Break",
+			"insert_after": "uid"
+		},
+	]
 
 	return {
 		"Customer": custom_fields_customer,
@@ -1204,5 +1239,6 @@ def get_custom_fields():
 		"Purchase Order Item": custom_fields_poi,
 		"Quotation": custom_fields_quo,
 		"Quotation Item": custom_fields_quoi,
-		"Opportunity": custom_fields_opportunity
+		"Opportunity": custom_fields_opportunity,
+		"Dunning": custom_fields_dunning
 	}
